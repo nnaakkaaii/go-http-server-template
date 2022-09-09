@@ -2,12 +2,14 @@ package handler
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
+
 	"github.com/nnaakkaaii/go-http-server-template/gen/api"
 	"github.com/nnaakkaaii/go-http-server-template/internal/handler/validator"
 	"github.com/nnaakkaaii/go-http-server-template/internal/service"
 	"github.com/nnaakkaaii/go-http-server-template/pkg/echoutil"
-	"net/http"
 )
 
 func (s *Server) PostRegister(ec echo.Context) error {

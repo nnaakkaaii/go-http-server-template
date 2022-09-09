@@ -2,8 +2,9 @@ package validator
 
 import (
 	"errors"
-	"github.com/nnaakkaaii/go-http-server-template/gen/api"
 	"log"
+
+	"github.com/nnaakkaaii/go-http-server-template/gen/api"
 )
 
 type User struct {

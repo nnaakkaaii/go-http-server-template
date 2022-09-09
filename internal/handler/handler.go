@@ -2,6 +2,7 @@ package handler
 
 import (
 	"database/sql"
+
 	api "github.com/nnaakkaaii/go-http-server-template/gen/api"
 )
 

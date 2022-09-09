@@ -77,7 +77,9 @@ func Upsert{{ $table.GoName }}(ctx context.Context, txn *sql.Tx, record {{ $tabl
 func Delete{{ if $index.IsUnique }}One{{ end }}{{ $table.GoName }}By{{ range $i, $f := $index.Fields }} {{- $f.GoName -}} {{- if not ($index.Tail $i) -}} And {{- end }}{{ end }}(ctx context.Context, txn *sql.Tx, {{ range $i, $f := $index.Fields }} {{- $f.Name }} *{{ $f.GoType }} {{- if not ($index.Tail $i) -}} , {{- end }}{{ end }}) error {
     eq := squirrel.Eq{}
     {{- range $index.Fields }}
-    eq["{{ .Name }}"] = {{ .Name }}
+    if {{ .Name }} != nil {
+        eq["{{ .Name }}"] = *{{ .Name }}
+    }
     {{- end }}
 
     query, params, err := squirrel.

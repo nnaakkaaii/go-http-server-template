@@ -3,7 +3,10 @@ package service
 import (
 	"context"
 	"database/sql"
+	"log"
+
 	"github.com/google/uuid"
+
 	"github.com/nnaakkaaii/go-http-server-template/gen/api"
 	"github.com/nnaakkaaii/go-http-server-template/gen/daocore"
 	"github.com/nnaakkaaii/go-http-server-template/pkg/crypto"
@@ -56,6 +59,7 @@ func Login(ctx context.Context, txn *sql.Tx, user *api.User) (*api.Message, stri
 }
 
 func Logout(ctx context.Context, txn *sql.Tx, user *daocore.User) (*api.Message, error) {
+	log.Println("logout")
 	if err := daocore.DeleteOneUserSessionByUserID(ctx, txn, &user.ID); err != nil {
 		return nil, err
 	}

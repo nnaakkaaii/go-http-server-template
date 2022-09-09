@@ -2,11 +2,13 @@ package handler
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
+
 	"github.com/nnaakkaaii/go-http-server-template/internal/handler/middleware"
 	"github.com/nnaakkaaii/go-http-server-template/internal/service"
 	"github.com/nnaakkaaii/go-http-server-template/pkg/echoutil"
-	"net/http"
 )
 
 func (s *Server) PostLogout(ec echo.Context) error {

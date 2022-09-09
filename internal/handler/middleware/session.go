@@ -4,10 +4,12 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"github.com/labstack/echo-contrib/session"
-	"github.com/nnaakkaaii/go-http-server-template/gen/daocore"
 	"net/http"
 	"time"
+
+	"github.com/labstack/echo-contrib/session"
+
+	"github.com/nnaakkaaii/go-http-server-template/gen/daocore"
 
 	"github.com/labstack/echo/v4"
 )
@@ -90,7 +92,7 @@ func SessionMiddleware(db *sql.DB, ignorePaths []string) func(next echo.HandlerF
 			// contextにuser情報を付与
 			ec.Set(ContextUserKey, u)
 
-			return nil
+			return next(ec)
 		}
 	}
 }
