@@ -1,0 +1,92 @@
+openapi: "3.0.2"
+info:
+  title: go-http-server-template
+  description: go http server template
+  version: 0.0.1
+paths:
+  /register:
+    post:
+      summary: "新規ユーザー登録"
+      tags:
+        - "auth"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: "登録成功"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /login:
+    post:
+      summary: "ログイン"
+      tags:
+        - "auth"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: "ログイン成功"
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+  /logout:
+    post:
+      summary: "ログアウト"
+      tags:
+        - "auth"
+      responses:
+        200:
+          description: "ログアウト成功"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+security:
+  - cookieAuth: []

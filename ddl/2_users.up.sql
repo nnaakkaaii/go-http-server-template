@@ -1,0 +1,8 @@
+CREATE TABLE users (
+    id CHAR(36) CHARACTER SET utf8 NOT NULL PRIMARY KEY COMMENT 'UUID',
+    first_name VARCHAR(128) NOT NULL,
+    last_name VARCHAR(128) NOT NULL,
+    email VARCHAR(128) NOT NULL,
+    password VARCHAR(128) NOT NULL,
+    UNIQUE (email)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;

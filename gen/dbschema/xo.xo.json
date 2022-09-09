@@ -1,0 +1,215 @@
+{
+  "schemas": [
+    {
+      "type": "mysql",
+      "name": "http_server",
+      "tables": [
+        {
+          "type": "table",
+          "name": "schema_migrations",
+          "columns": [
+            {
+              "name": "version",
+              "datatype": {
+                "type": "bigint"
+              },
+              "is_primary": true
+            },
+            {
+              "name": "dirty",
+              "datatype": {
+                "type": "tinyint",
+                "prec": 1
+              }
+            }
+          ],
+          "primary_keys": [
+            {
+              "name": "version",
+              "datatype": {
+                "type": "bigint"
+              },
+              "is_primary": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "schema_migrations_version_pkey",
+              "fields": [
+                {
+                  "name": "version",
+                  "datatype": {
+                    "type": "bigint"
+                  },
+                  "is_primary": true
+                }
+              ],
+              "is_unique": true,
+              "is_primary": true
+            }
+          ],
+          "manual": true
+        },
+        {
+          "type": "table",
+          "name": "user_sessions",
+          "columns": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            },
+            {
+              "name": "user_id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              }
+            },
+            {
+              "name": "created_at",
+              "datatype": {
+                "type": "timestamp"
+              },
+              "default": "CURRENT_TIMESTAMP"
+            },
+            {
+              "name": "updated_at",
+              "datatype": {
+                "type": "timestamp"
+              },
+              "default": "CURRENT_TIMESTAMP"
+            }
+          ],
+          "primary_keys": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "user_id",
+              "fields": [
+                {
+                  "name": "user_id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  }
+                }
+              ],
+              "is_unique": true
+            },
+            {
+              "name": "user_sessions_id_pkey",
+              "fields": [
+                {
+                  "name": "id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  },
+                  "is_primary": true
+                }
+              ],
+              "is_unique": true,
+              "is_primary": true
+            }
+          ],
+          "manual": true
+        },
+        {
+          "type": "table",
+          "name": "users",
+          "columns": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            },
+            {
+              "name": "first_name",
+              "datatype": {
+                "type": "varchar",
+                "prec": 128
+              }
+            },
+            {
+              "name": "last_name",
+              "datatype": {
+                "type": "varchar",
+                "prec": 128
+              }
+            },
+            {
+              "name": "email",
+              "datatype": {
+                "type": "varchar",
+                "prec": 128
+              }
+            },
+            {
+              "name": "password",
+              "datatype": {
+                "type": "varchar",
+                "prec": 128
+              }
+            }
+          ],
+          "primary_keys": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "email",
+              "fields": [
+                {
+                  "name": "email",
+                  "datatype": {
+                    "type": "varchar",
+                    "prec": 128
+                  }
+                }
+              ],
+              "is_unique": true
+            },
+            {
+              "name": "users_id_pkey",
+              "fields": [
+                {
+                  "name": "id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  },
+                  "is_primary": true
+                }
+              ],
+              "is_unique": true,
+              "is_primary": true
+            }
+          ],
+          "manual": true
+        }
+      ]
+    }
+  ]
+}

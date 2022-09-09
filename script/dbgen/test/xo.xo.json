@@ -1,0 +1,227 @@
+{
+  "schemas": [
+    {
+      "type": "mysql",
+      "name": "takos_dev",
+      "tables": [
+        {
+          "type": "table",
+          "name": "examination_questions",
+          "columns": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            },
+            {
+              "name": "examination_id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              }
+            },
+            {
+              "name": "name",
+              "datatype": {
+                "type": "varchar",
+                "prec": 300
+              }
+            },
+            {
+              "name": "description",
+              "datatype": {
+                "type": "varchar",
+                "prec": 300
+              }
+            },
+            {
+              "name": "allocated_score",
+              "datatype": {
+                "type": "smallint",
+                "prec": 5,
+                "nullable": true,
+                "unsigned": true
+              },
+              "default": "0"
+            },
+            {
+              "name": "answer_format",
+              "datatype": {
+                "type": "smallint",
+                "prec": 5,
+                "nullable": true,
+                "unsigned": true
+              },
+              "default": "0"
+            },
+            {
+              "name": "created_at",
+              "datatype": {
+                "type": "timestamp"
+              },
+              "default": "CURRENT_TIMESTAMP"
+            },
+            {
+              "name": "updated_at",
+              "datatype": {
+                "type": "timestamp"
+              },
+              "default": "CURRENT_TIMESTAMP"
+            }
+          ],
+          "primary_keys": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "examination_id",
+              "fields": [
+                {
+                  "name": "examination_id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  }
+                }
+              ]
+            },
+            {
+              "name": "examination_questions_id_pkey",
+              "fields": [
+                {
+                  "name": "id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  },
+                  "is_primary": true
+                }
+              ],
+              "is_unique": true,
+              "is_primary": true
+            }
+          ],
+          "foreign_keys": [
+            {
+              "name": "examination_questions_ibfk_1",
+              "column": [
+                {
+                  "name": "examination_id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  }
+                }
+              ],
+              "ref_table": "examinations",
+              "ref_column": [
+                {
+                  "name": "id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  },
+                  "is_primary": true
+                }
+              ]
+            }
+          ],
+          "manual": true
+        },
+        {
+          "type": "table",
+          "name": "examinations",
+          "columns": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            },
+            {
+              "name": "name",
+              "datatype": {
+                "type": "varchar",
+                "prec": 300
+              }
+            },
+            {
+              "name": "description",
+              "datatype": {
+                "type": "varchar",
+                "prec": 600
+              }
+            },
+            {
+              "name": "created_at",
+              "datatype": {
+                "type": "timestamp"
+              },
+              "default": "CURRENT_TIMESTAMP"
+            },
+            {
+              "name": "updated_at",
+              "datatype": {
+                "type": "timestamp"
+              },
+              "default": "CURRENT_TIMESTAMP"
+            }
+          ],
+          "primary_keys": [
+            {
+              "name": "id",
+              "datatype": {
+                "type": "char",
+                "prec": 36
+              },
+              "is_primary": true
+            }
+          ],
+          "indexes": [
+            {
+              "name": "name",
+              "fields": [
+                {
+                  "name": "name",
+                  "datatype": {
+                    "type": "varchar",
+                    "prec": 300
+                  }
+                }
+              ],
+              "is_unique": true
+            },
+            {
+              "name": "examinations_id_pkey",
+              "fields": [
+                {
+                  "name": "id",
+                  "datatype": {
+                    "type": "char",
+                    "prec": 36
+                  },
+                  "is_primary": true
+                }
+              ],
+              "is_unique": true,
+              "is_primary": true
+            }
+          ],
+          "manual": true
+        }
+      ]
+    }
+  ]
+}
