@@ -7,7 +7,6 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
-	"net/url"
 	"os"
 
 	"github.com/gorilla/sessions"
@@ -44,7 +43,6 @@ func run() error {
 	e.HideBanner = true
 
 	l := logger.New()
-	allowedOrigins := map[string]bool{}
 
 	// db
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", env.DBUser, env.DBPass, env.DBHost, env.DBPort, env.DBName))
@@ -57,7 +55,6 @@ func run() error {
 		return err
 	}
 	sessStore := sessions.NewCookieStore(ss)
-
 	sessStore.Options = &sessions.Options{
 		Path:     "/",
 		MaxAge:   env.SessionMaxAge,
@@ -72,13 +69,6 @@ func run() error {
 		middleware.Logger(),
 		middleware.RequestID(),
 		middleware.CORSWithConfig(middleware.CORSConfig{
-			AllowOriginFunc: func(origin string) (bool, error) {
-				u, err := url.Parse(origin)
-				if err != nil {
-					return false, err
-				}
-				return allowedOrigins[u.Host] || allowedOrigins["*"], nil
-			},
 			AllowCredentials: true,
 		}),
 		session.Middleware(sessStore),

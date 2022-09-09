@@ -38,5 +38,5 @@ func (s *Server) PostRegister(ec echo.Context) error {
 		return echoutil.ErrInternal(ec, err)
 	}
 
-	return ec.JSON(http.StatusOK, *msg)
+	return ec.JSON(http.StatusOK, msg)
 }

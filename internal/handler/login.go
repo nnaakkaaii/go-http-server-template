@@ -38,9 +38,10 @@ func (s *Server) PostLogin(ec echo.Context) error {
 	if err := txn.Commit(); err != nil {
 		return echoutil.ErrInternal(ec, err)
 	}
-	if err := middleware.SetCookie(&ec, id); err != nil {
+	ec, err = middleware.SetCookie(ec, id)
+	if err != nil {
 		return echoutil.ErrInternal(ec, err)
 	}
 
-	return ec.JSON(http.StatusOK, *msg)
+	return ec.JSON(http.StatusOK, msg)
 }

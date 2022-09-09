@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/nnaakkaaii/go-http-server-template/gen/daocore"
 	"net/http"
@@ -19,19 +20,20 @@ const (
 	ContextUserKey      = "user"
 )
 
-func SetCookie(ec *echo.Context, id string) error {
-	sess, _ := session.Get(SessionStoreKey, *ec)
+func SetCookie(ec echo.Context, id string) (echo.Context, error) {
+	sess, _ := session.Get(SessionStoreKey, ec)
 	sess.Values[SessionIDKey] = id
 	sess.Values[SessionExpiresAtKey] = time.Now().Add(SessionDuration).Unix()
 
 	// sessionに保存
-	if err := sess.Save((*ec).Request(), (*ec).Response()); err != nil {
-		return err
+	if err := sess.Save(ec.Request(), ec.Response()); err != nil {
+		return ec, err
 	}
-	return nil
+	return ec, nil
 }
+
 func SessionMiddleware(db *sql.DB, ignorePaths []string) func(next echo.HandlerFunc) echo.HandlerFunc {
-	ignores := map[string]bool{} // FIXME : duplicated
+	ignores := map[string]bool{}
 	for _, path := range ignorePaths {
 		ignores[path] = true
 	}
@@ -91,4 +93,12 @@ func SessionMiddleware(db *sql.DB, ignorePaths []string) func(next echo.HandlerF
 			return nil
 		}
 	}
+}
+
+func GetUserFromSession(ec echo.Context) (*daocore.User, error) {
+	user, ok := ec.Get(ContextUserKey).(daocore.User)
+	if !ok {
+		return nil, errors.New("cannot dump context into user struct")
+	}
+	return &user, nil
 }
